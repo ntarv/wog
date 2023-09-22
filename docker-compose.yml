@@ -1,0 +1,8 @@
+version: '2'
+services:
+   nginx:
+     image: tardocker/score
+     ports:
+       - "8777:5000"
+
+

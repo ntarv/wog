@@ -1,0 +1,31 @@
+stages:
+  - build
+  - test 
+  - dev
+ 
+build:
+  stage: build
+  
+   
+  script:
+  - docker build -t tardocker/wog2 .
+  - docker run --name score -d -p 8088:5000 tardocker/wog2
+
+test:
+
+  
+  script:   
+ 
+  #  - python3 tests/e2e.py
+  - docker stop score
+
+dev:
+  stage: dev
+  
+  
+  script:
+     
+   
+   - docker tag   tardocker/wog2 127.0.0.1/gitlab-instance-f428752e/wog 
+   - docker login 127.0.0.1 -u $USERNAME -p $TOKEN 
+   - docker push 127.0.0.1/gitlab-instance-f428752e/wog 
